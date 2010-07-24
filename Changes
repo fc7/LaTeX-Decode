@@ -1,0 +1,11 @@
+Revision history for LaTeX-Decode
+
+0.2     2010/07/24
+        Initial commit of standalone module on github
+-----------------------------------------------------
+0.1     2009/03/16
+        Bumped to v0.1 for simplicity
+0.01    2008/05/23
+        First version was bundled with Biber:
+        see http://biblatex-biber.git.sourceforge.net 
+        for complete revision history.
