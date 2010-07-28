@@ -66,7 +66,7 @@ $me Version: $VERSION
 }
 
 sub usage {
-    qq[
+    qq/
 Usage: latex2utf8 infile > outfile
 
 Options:
@@ -79,7 +79,7 @@ Options:
   --normalization|-N    The normalization form to use (default = 'NFC')
 
 Example: latex2utf8 -i latin1 -s base infile.tex > outfile.tex
-\n]
+\n/
 }
 
 =pod
@@ -100,16 +100,20 @@ latex2utf8 file.tex > utf8file.tex
 
 =head1 DESCRIPTION
 
-TBW
+Command-line utility to convert a LaTeX-encoded file to UTF-8.
+See the output of C<latex2utf8 --help> for usage and options.
 
 =head1 AUTHOR
 
-François Charette, C<< <firmicus at gmx.net> >>
+François Charette, C<< <firmicus@cpan.org> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests on our sourceforge tracker at
-L<https://sourceforge.net/tracker2/?func=browse&group_id=228270>. 
+Please report any bugs or feature requests to C<bug-latex-decode at
+rt.cpan.org>, or through the web interface at
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=LaTeX-Decode>.  I will be
+notified, and then you'll automatically be notified of progress on your bug as
+I make changes.
 
 =head1 COPYRIGHT & LICENSE
 
