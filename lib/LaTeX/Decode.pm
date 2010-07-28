@@ -48,8 +48,8 @@ The function accepts a number of options:
     * normalization => <normalization form> (default 'NFC')
         and if yes, the normalization form to use (see the Unicode::Normalize documentation)
 
-    * strip_outer_brackets => $bool (default 0)
-        whether the outer curly brackets around letters+combining marks should be
+    * strip_outer_braces => $bool (default 0)
+        whether the outer curly braces around letters+combining marks should be
         stripped off. By default "fut{\\'e}" becomes fut{é}, to prevent something
         like '\\textuppercase{\\'e}' to become '\\textuppercaseé'. Setting this option to
         TRUE can be useful for instance when converting BibTeX files.
