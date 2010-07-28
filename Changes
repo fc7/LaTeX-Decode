@@ -1,9 +1,11 @@
 Revision history for LaTeX-Decode
 
-0.02    2010/07/24
-        Initial commit of standalone module on github
------------------------------------------------------
+0.02    [2010/0X/XX]
+        Initial upload on CPAN
+
+        [2010/07/24: initial commit of standalone module on github]
+-------------------------------------------------------------------
 0.01    2008/05/23
         First version was bundled with Biber:
-        see http://biblatex-biber.git.sourceforge.net 
+        see http://biblatex-biber.git.sourceforge.net
         for complete revision history.

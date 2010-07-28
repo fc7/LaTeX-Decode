@@ -9,3 +9,4 @@ LaTeX-Decode-*
 nytprof*
 *.swp
 lib/LaTeX/Encode/More.pm
+MYMETA.yml
