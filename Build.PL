@@ -13,6 +13,7 @@ my $builder = Module::Build->new(
     requires => {
         'perl' => 5.008,
         'File::Slurp' => 0,
+        'Unicode::Normalize' => 0,
     },
     script_files => [ glob( "bin/*" ) ],
     add_to_cleanup      => [ 'LaTeX-Decode-*' ],
