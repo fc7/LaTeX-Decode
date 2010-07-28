@@ -49,7 +49,7 @@ The function accepts a number of options:
         and if yes, the normalization form to use (see the Unicode::Normalize documentation)
 
     * strip_outer_brackets => $bool (default 0)
-        whether the outer curly brackets around letters+combining marks should be 
+        whether the outer curly brackets around letters+combining marks should be
         stripped off. By default "fut{\\'e}" becomes fut{é}, to prevent something
         like '\\textuppercase{\\'e}' to become '\\textuppercaseé'. Setting this option to
         TRUE can be useful for instance when converting BibTeX files.
@@ -77,34 +77,25 @@ our $DefaultScheme = 'extra';
 
 sub _get_diac {
     my $scheme = shift;
-    if ($scheme eq 'base') {
-        return %DIACRITICS
+    if ( $scheme eq 'base' ) {
+        return %DIACRITICS;
     }
     else {
-        return (%DIACRITICS, %DIACRITICSEXTRA)
+        return ( %DIACRITICS, %DIACRITICSEXTRA );
     }
 }
 
 sub _get_mac {
     my $scheme = shift;
-    if ($scheme eq 'base') {
-        return %WORDMACROS
+    if ( $scheme eq 'base' ) {
+        return %WORDMACROS;
     }
-    elsif ($scheme eq 'full') {
-        return (
-            %WORDMACROS,
-            %WORDMACROSEXTRA,
-            %PUNCTUATION,
-            %SYMBOLS,
-            %GREEK
-        )
-   }
-   else {
-         return (
-            %WORDMACROS, 
-            %WORDMACROSEXTRA, 
-            %PUNCTUATION
-        )
+    elsif ( $scheme eq 'full' ) {
+        return ( %WORDMACROS, %WORDMACROSEXTRA, %PUNCTUATION, %SYMBOLS,
+            %GREEK );
+    }
+    else {
+        return ( %WORDMACROS, %WORDMACROSEXTRA, %PUNCTUATION );
     }
 }
 
@@ -114,23 +105,24 @@ sub latex_decode {
     my $norm      = exists $opts{normalize} ? $opts{normalize} : 1;
     my $norm_form = exists $opts{normalization} ? $opts{normalization} : 'NFC';
     my $scheme    = exists $opts{scheme} ? $opts{scheme} : $DefaultScheme;
-    my $strip_outer_braces = 
-                    exists $opts{strip_outer_braces} ? $opts{strip_outer_braces} : 0;
+    my $strip_outer_braces =
+      exists $opts{strip_outer_braces} ? $opts{strip_outer_braces} : 0;
 
     my %DIAC    = _get_diac($scheme);
     my %WORDMAC = _get_mac($scheme);
 
     # a regex with all possible word macros
-    my $WORDMAC_RE = join('|', sort {length $b <=> length $a} keys %WORDMAC);
-    $WORDMAC_RE    = qr{$WORDMAC_RE};
+    my $WORDMAC_RE =
+      join( '|', sort { length $b <=> length $a } keys %WORDMAC );
+    $WORDMAC_RE = qr{$WORDMAC_RE};
 
     my $DIAC_RE;
-    if ($scheme eq 'base') {
-        $DIAC_RE = $DIAC_RE_BASE
+    if ( $scheme eq 'base' ) {
+        $DIAC_RE = $DIAC_RE_BASE;
     }
     else {
-        $DIAC_RE = $DIAC_RE_EXTRA
-    };
+        $DIAC_RE = $DIAC_RE_EXTRA;
+    }
 
     if ( $scheme eq 'full' ) {
         $text =~ s/\\not\\($NEG_SYMB_RE)/$NEGATEDSYMBOLS{$1}/ge;
@@ -141,44 +133,39 @@ sub latex_decode {
 
     $text =~ s/(\\[a-zA-Z]+)\\(\s+)/$1\{\}$2/g;    # \foo\ bar -> \foo{} bar
     $text =~ s/([^{]\\\w)([;,.:%])/$1\{\}$2/g;     #} Aaaa\o, -> Aaaa\o{},
-    $text =~ s/(\\(?:$DIAC_RE_BASE|$ACCENTS_RE)){\\i}/$1\{i\}/g; # special cases such as '\={\i}' -> '\={i}' -> "i\x{304}"
-    #$text =~ s/ { \\($WORDMAC_RE) } / $WORDMAC{$1} /gxe;                 
+    $text =~ s/(\\(?:$DIAC_RE_BASE|$ACCENTS_RE)){\\i}/$1\{i\}/g;
+           # special cases such as '\={\i}' -> '\={i}' -> "i\x{304}"
+
     $text =~ s/ \\($WORDMAC_RE)(?: \{\} | \s+ | \b) / $WORDMAC{$1} /gxe;
 
-    #ddx $text;
-    #$text =~ s/{\\($ACCENTS_RE)\{(\p{L}\p{M}*)\}}/$2 . $ACCENTS{$1}/ge;
     $text =~ s/\\($ACCENTS_RE)\{(\p{L}\p{M}*)\}/$2 . $ACCENTS{$1}/ge;
-    #$text =~ s/{\\($ACCENTS_RE)(\p{L}\p{M}*)}/$2 . $ACCENTS{$1}/ge;
-    $text =~ s/\\($ACCENTS_RE)(\p{L}\p{M}*)/$2 . $ACCENTS{$1}/ge;
-    #ddx $text;
 
-    #$text =~ s/{\\($DIAC_RE)\s*\{(\p{L}\p{M}*)\}}/$2 . $DIAC{$1}/ge;
+    $text =~ s/\\($ACCENTS_RE)(\p{L}\p{M}*)/$2 . $ACCENTS{$1}/ge;
+
     $text =~ s/\\($DIAC_RE)\s*\{(\p{L}\p{M}*)\}/$2 . $DIAC{$1}/ge;
-    #$text =~ s/{\\($DIAC_RE)\s+(\p{L}\p{M}*)}/$2 . $DIAC{$1}/ge;
+
     $text =~ s/\\($DIAC_RE)\s+(\p{L}\p{M}*)/$2 . $DIAC{$1}/ge;
-    #ddx $text;
 
-    #$text =~ s/{\\($ACCENTS_RE)\{(\p{L}\p{M}*)\}}/$2 . $ACCENTS{$1}/ge;
     $text =~ s/\\($ACCENTS_RE)\{(\p{L}\p{M}*)\}/$2 . $ACCENTS{$1}/ge;
-    #$text =~ s/{\\($ACCENTS_RE)(\p{L}\p{M}*)}/$2 . $ACCENTS{$1}/ge;
-    $text =~ s/\\($ACCENTS_RE)(\p{L}\p{M}*)/$2 . $ACCENTS{$1}/ge;
-    #ddx $text;
 
-    ## by default we skip that, coz it would destroy things like \foo{\`e}
+    $text =~ s/\\($ACCENTS_RE)(\p{L}\p{M}*)/$2 . $ACCENTS{$1}/ge;
+
+    ## by default we skip that, as it would destroy constructions like \foo{\`e}
     if ($strip_outer_braces) {
         $text =~ s/{(\PM\pM+)}/$1/g; # remove {} around letter+combining mark(s)
     }
-    
+
     if ($norm) {
-        return Unicode::Normalize::normalize($norm_form, $text);
-    } else {
-        return $text
+        return Unicode::Normalize::normalize( $norm_form, $text );
+    }
+    else {
+        return $text;
     }
 }
 
 =head1 AUTHOR
 
-François Charette, C<< <firmicus at gmx.net> >>
+François Charette, C<< <firmicus@cpan.org> >>
 
 =head1 BUGS
 
@@ -187,11 +174,6 @@ rt.cpan.org>, or through the web interface at
 L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=LaTeX-Decode>.  I will be
 notified, and then you'll automatically be notified of progress on your bug as
 I make changes.
-
-=head1 NOTICE
-
-This module is currently distributed with biber, but it is not unlikely that it
-will eventually make its way to CPAN.
 
 =head1 COPYRIGHT & LICENSE
 
