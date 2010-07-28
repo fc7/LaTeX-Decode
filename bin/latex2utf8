@@ -22,7 +22,7 @@ GetOptions(
   'normalization|N=s',
 );
 
-our $VERSION = '0.2';
+our $VERSION = '0.02';
 
 die usage() if exists $opts->{'help'};
 

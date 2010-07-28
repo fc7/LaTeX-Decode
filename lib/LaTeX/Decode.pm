@@ -4,24 +4,23 @@ use 5.008;
 use warnings;
 use strict;
 use Carp;
-#use Data::Dump;
 
 =encoding utf-8
 
 =head1 NAME
 
-LaTeX::Decode - Decode from LaTeX to Unicode 
+LaTeX::Decode - Decode from LaTeX to Unicode
 
 =head1 VERSION
 
-Version 0.2.0
+Version 0.02
 
 =cut
 
 use base qw(Exporter);
-our $VERSION = '0.2.0';
+our $VERSION = '0.02';
 our @EXPORT  = qw(latex_decode);
-use LaTeX::Decode::Data; # qw(:all);
+use LaTeX::Decode::Data;
 use Unicode::Normalize;
 
 =head1 SYNOPSIS

@@ -1,0 +1,27 @@
+---
+abstract: 'Decode from LaTeX to Unicode'
+author:
+  - 'François Charette <firmicus@cpan.org>'
+build_requires:
+  Test::More: 0
+configure_requires:
+  Module::Build: 0.36
+generated_by: 'Module::Build version 0.3607'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: LaTeX-Decode
+provides:
+  LaTeX::Decode:
+    file: lib/LaTeX/Decode.pm
+    version: 0.02
+  LaTeX::Decode::Data:
+    file: lib/LaTeX/Decode/Data.pm
+requires:
+  File::Slurp: 0
+  Unicode::Normalize: 0
+  perl: 5.008
+resources:
+  license: http://dev.perl.org/licenses/
+version: 0.02
