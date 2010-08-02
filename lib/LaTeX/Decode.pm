@@ -150,6 +150,10 @@ sub latex_decode {
 
     $text =~ s/\\($ACCENTS_RE)(\p{L}\p{M}*)/$2 . $ACCENTS{$1}/ge;
 
+    $text =~ s/\\($DIAC_RE)\s*\{(\p{L}\p{M}*)\}/$2 . $DIAC{$1}/ge;
+
+    $text =~ s/\\($DIAC_RE)\s+(\p{L}\p{M}*)/$2 . $DIAC{$1}/ge;
+
     ## by default we skip that, as it would destroy constructions like \foo{\`e}
     if ($strip_outer_braces) {
         $text =~ s/{(\PM\pM+)}/$1/g; # remove {} around letter+combining mark(s)
