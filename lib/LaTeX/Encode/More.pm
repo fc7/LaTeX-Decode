@@ -426,7 +426,7 @@ my $ACCENT_RE = qr{[\x{300}-\x{304}\x{307}\x{308}]};
 sub _get_diac_last {
     my ($a,$b) = @_;
     if ( $b =~ /$ACCENT_RE/) {
-        return $a
+        return $a eq 'i' ? '{\\i}' : $a
     }
     else {
         return "{$a}"
