@@ -156,7 +156,7 @@ sub latex_decode {
 
     ## by default we skip that, as it would destroy constructions like \foo{\`e}
     if ($strip_outer_braces) {
-        $text =~ s/{(\PM\pM+)}/$1/g; # remove {} around letter+combining mark(s)
+        $text =~ s/{(\PM\pM*)}/$1/g; # remove {} around letter or letter+combining mark(s)
     }
 
     if ($norm) {
