@@ -15,7 +15,7 @@ name: LaTeX-Decode
 provides:
   LaTeX::Decode:
     file: lib/LaTeX/Decode.pm
-    version: 0.02
+    version: 0.03
   LaTeX::Decode::Data:
     file: lib/LaTeX/Decode/Data.pm
 requires:
@@ -24,4 +24,4 @@ requires:
   perl: 5.008
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.02
+version: 0.03
