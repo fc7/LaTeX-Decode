@@ -136,6 +136,11 @@ sub latex_decode {
     $text =~ s/(\\(?:$DIAC_RE_BASE|$ACCENTS_RE)){\\i}/$1\{i\}/g;
            # special cases such as '\={\i}' -> '\={i}' -> "i\x{304}"
 
+    ## remove {} around macros that print one character
+    ## by default we skip that, as it would break constructions like \foo{\i}
+    if ($strip_outer_braces) {
+        $text =~ s/ \{\\($WORDMAC_RE)\} / $WORDMAC{$1} /gxe;
+    }
     $text =~ s/ \\($WORDMAC_RE)(?: \{\} | \s+ | \b) / $WORDMAC{$1} /gxe;
 
     $text =~ s/\\($ACCENTS_RE)\{(\p{L}\p{M}*)\}/$2 . $ACCENTS{$1}/ge;
@@ -154,9 +159,10 @@ sub latex_decode {
 
     $text =~ s/\\($DIAC_RE)\s+(\p{L}\p{M}*)/$2 . $DIAC{$1}/ge;
 
+    ## remove {} around letter+combining mark(s)
     ## by default we skip that, as it would destroy constructions like \foo{\`e}
     if ($strip_outer_braces) {
-        $text =~ s/{(\PM\pM*)}/$1/g; # remove {} around letter or letter+combining mark(s)
+        $text =~ s/{(\PM\pM+)}/$1/g;
     }
 
     if ($norm) {
