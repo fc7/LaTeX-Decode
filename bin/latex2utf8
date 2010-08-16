@@ -127,6 +127,8 @@ Version 0.03
 
 latex2utf8 file.tex > utf8file.tex
 
+echo '\textexclamdown\textctj\alpha\textphook\texthvlig!' | latex2utf8 --scheme full --filter
+
 =head1 DESCRIPTION
 
 Command-line utility to convert a LaTeX-encoded file to UTF-8.
