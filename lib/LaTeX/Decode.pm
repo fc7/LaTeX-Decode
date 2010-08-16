@@ -42,7 +42,7 @@ Decodes the given text from LaTeX to Unicode.
 
 The function accepts a number of options:
 
-    * normalize => $bool (default 0)
+    * normalize => $bool (default 1)
         whether the output string should be normalized with Unicode::Normalize
 
     * normalization => <normalization form> (default 'NFC')
@@ -57,16 +57,16 @@ The function accepts a number of options:
 =head1 GLOBAL OPTIONS
 
 The decoding scheme can be set with
-  $LaTeX::Decode::DefaultScheme = '<name>';
-Possible values are 'base', 'extra' and 'full'; default value is 'extra'.
 
-TODO : explain these scheme!
+    $LaTeX::Decode::DefaultScheme = '<name>';
+
+Possible values are 'base', 'extra' and 'full'; default value is 'extra'.
 
 base  => Most common macros and diacritics (sufficient for Western languages
          and common symbols)
 
-extra => Also converts punctuation, larger range of diacritics and macros (e.g. for IPA, Latin Extended
-         Additional, etc.)
+extra => Also converts punctuation, larger range of diacritics and macros
+         (e.g. for IPA, Latin Extended Additional, etc.)
 
 full  => Also converts symbols, Greek letters, dingbats, negated symbols, and
          superscript characters and symbols ...
