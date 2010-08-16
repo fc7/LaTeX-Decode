@@ -5,7 +5,6 @@ use warnings;
 #no warnings 'utf8';
 use Carp;
 use LaTeX::Decode;
-use IO::File;
 use File::Slurp;
 use Encode;
 binmode(STDOUT, ':utf8');
@@ -20,9 +19,10 @@ GetOptions(
   'scheme|s=s',
   'normalize|n!',
   'normalization|N=s',
+  'strip_outer_braces|b!'
 );
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 die usage() if exists $opts->{'help'};
 
@@ -39,19 +39,27 @@ my %ld_opts = ();
 if (exists $opts->{inputencoding}) {
     my $encoding = $opts->{inputencoding};
     $text = decode($encoding, $text);
-};
+}
 
 if (exists $opts->{scheme} ) {
     $ld_opts{scheme} = $opts->{scheme}
-};
+}
 
 if (exists $opts->{normalize} ) {
-    $ld_opts{norm} = $opts->{normalize}
-};
+    die "The option 'normalize' has been removed:\n\t use '--normalization 0' to suppress normalization\n"
+}
 
 if (exists $opts->{normalization} ) {
-    $ld_opts{norm} = $opts->{normalization}
-};
+    if (!$opts->{normalization} or $opts->{normalization} eq 'undef') {
+        $ld_opts{normalize} = 0
+    } else {
+        $ld_opts{normalization} = $opts->{normalization}
+    }
+}
+
+if (exists $opts->{strip_outer_braces} ) {
+    $ld_opts{strip_outer_braces} = $opts->{strip_outer_braces}
+}
 
 $text = decode_utf8($text);
 
@@ -73,12 +81,19 @@ Options:
   --help|-h             Show this help message.
   --version|-v          Display version number.
   --inputencoding|-i [encoding]
-                        Input file uses legacy encoding
-  --scheme|-s           Decoding scheme to use ('base', 'extra', 'full' – default = 'extra')
-  --normalize|-n        Whether to normalize the output with Unicode::Normalize (boolean, default = 1)
+                        Encoding used in the input file
+  --scheme|-s           Decoding scheme to use
+                        (possible values are 'base', 'extra', 'full'; default = 'extra')
   --normalization|-N    The normalization form to use (default = 'NFC')
+                        (with a value of 0 or undef the output will not be normalized with
+                        Unicode::Normalize)
+  --strip_outer_braces|-b
+                        Remove curly braces around characters (boolean)
+                        (e.g. "saut{\\\'e}" => "sauté")
 
-Example: latex2utf8 -i latin1 -s base infile.tex > outfile.tex
+(See "perldoc LaTeX::Decode" for more information on the last four options.)
+
+Example: latex2utf8 -i latin1 -s base -N NFD infile.tex > outfile.tex
 \n/
 }
 
@@ -92,7 +107,7 @@ C<latex2utf8> - converts LaTeX encoding to UTF-8
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =head1 SYNOPSIS
 
