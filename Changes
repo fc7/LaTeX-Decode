@@ -4,6 +4,8 @@ Revision history for LaTeX-Decode
         * Allow stripping braces around macros standing for a single char
         * Added and updated the companion script latex2utf8 which was
           mistakenly omitted in the previous tarball
+        * implement option --filter in latex2utf8
+        * License is now explicitly Artistic 2.0
 
 0.02    [2010/08/03]
         Initial upload on CPAN
