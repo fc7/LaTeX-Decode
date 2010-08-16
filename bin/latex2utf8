@@ -5,7 +5,6 @@ use warnings;
 #no warnings 'utf8';
 use Carp;
 use LaTeX::Decode;
-use File::Slurp;
 use Encode;
 binmode(STDOUT, ':utf8');
 use Getopt::Long qw/:config no_ignore_case/;
@@ -16,6 +15,7 @@ GetOptions(
   'help|h|?',
   'version|v',
   'inputencoding|i=s',
+  'filter|f!',
   'scheme|s=s',
   'normalize|n!',
   'normalization|N=s',
@@ -28,10 +28,20 @@ die usage() if exists $opts->{'help'};
 
 die version() if exists $opts->{'version'};
 
-#TODO option --filter to use content of STDIN instead
-my $infile = $ARGV[0] or die usage();
+my $text;
 
-my $text = read_file($infile) or croak "Cannot read input file";
+if ($opts->{filter}) {
+    while (<STDIN>) {
+        $text .= $_
+    }
+    croak "Huh? There is nothing to convert!\n" if (!$text or $text =~ /^\s*$/)
+}
+else {
+    my $infile = $ARGV[0] or die usage();
+    require File::Slurp;
+
+    $text = read_file($infile) or croak "Cannot read input file '$infile'";
+}
 
 #Options to pass to latex_decode()
 my %ld_opts = ();
@@ -80,18 +90,22 @@ Usage: latex2utf8 infile > outfile
 Options:
   --help|-h             Show this help message.
   --version|-v          Display version number.
+  --filter|-f           Use script as a filter, using standard input instead of
+                          an input file
   --inputencoding|-i [encoding]
-                        Encoding used in the input file
-  --scheme|-s           Decoding scheme to use
-                        (possible values are 'base', 'extra', 'full'; default = 'extra')
-  --normalization|-N    The normalization form to use (default = 'NFC')
-                        (with a value of 0 or undef the output will not be normalized with
-                        Unicode::Normalize)
+                        Encoding used in the input file (or STDIN if using
+                          the option --filter)
+  --scheme|-s           Decoding scheme to use (possible values are 'base',
+                          'extra', 'full'; default = 'extra')
+  --normalization|-N [form]
+                        The normalization form to use (default = 'NFC')
+                          (with a value of 0 or undef the output will not be
+                          normalized with Unicode::Normalize)
   --strip_outer_braces|-b
                         Remove curly braces around characters (boolean)
-                        (e.g. "saut{\\\'e}" => "sauté")
+                          (e.g. "saut{\\\'e}" => "sauté")
 
-(See "perldoc LaTeX::Decode" for more information on the last four options.)
+(See "perldoc LaTeX::Decode" for more information on the last three options.)
 
 Example: latex2utf8 -i latin1 -s base -N NFD infile.tex > outfile.tex
 \n/
