@@ -40,7 +40,7 @@ else {
     my $infile = $ARGV[0] or die usage();
     require File::Slurp;
 
-    $text = read_file($infile) or croak "Cannot read input file '$infile'";
+    $text = File::Slurp::read_file($infile) or croak "Cannot read input file '$infile'";
 }
 
 #Options to pass to latex_decode()
