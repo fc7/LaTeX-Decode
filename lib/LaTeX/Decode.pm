@@ -105,6 +105,8 @@ sub latex_decode {
     my $norm      = exists $opts{normalize} ? $opts{normalize} : 1;
     my $norm_form = exists $opts{normalization} ? $opts{normalization} : 'NFC';
     my $scheme    = exists $opts{scheme} ? $opts{scheme} : $DefaultScheme;
+    croak "invalid scheme name '$scheme'"
+        unless ( $scheme eq 'full' or $scheme eq 'base' or $scheme eq 'extra' );
     my $strip_outer_braces =
       exists $opts{strip_outer_braces} ? $opts{strip_outer_braces} : 0;
 
