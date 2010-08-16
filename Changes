@@ -2,8 +2,8 @@ Revision history for LaTeX-Decode
 
 0.03    [2010/08/15]
         * Allow stripping braces around macros standing for a single char
-        * Add companion script latex2utf8 which was mistakenly omitted in
-          previous tarball
+        * Added and updated the companion script latex2utf8 which was
+          mistakenly omitted in the previous tarball
 
 0.02    [2010/08/03]
         Initial upload on CPAN
