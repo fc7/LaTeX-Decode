@@ -10,3 +10,5 @@ nytprof*
 *.swp
 MANIFEST.SKIP
 MYMETA.yml
+MYMETA.json
+META.*
