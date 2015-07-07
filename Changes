@@ -1,5 +1,8 @@
 Revision history for LaTeX-Decode
 
+0.04    [2015/07/07]
+        * Fix small POD encoding problem
+
 0.03    [2010/08/15]
         * Allow stripping braces around macros standing for a single char
         * Added and updated the companion script latex2utf8 which was

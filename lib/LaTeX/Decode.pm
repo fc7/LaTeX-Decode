@@ -13,12 +13,12 @@ LaTeX::Decode - Decode from LaTeX to Unicode
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =cut
 
 use base qw(Exporter);
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 our @EXPORT  = qw(latex_decode);
 use LaTeX::Decode::Data;
 use Unicode::Normalize;
@@ -189,7 +189,7 @@ I make changes.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2009-2010 François Charette, all rights reserved.
+Copyright 2009-2015 François Charette, all rights reserved.
 
 This module is free software.  You can redistribute it and/or
 modify it under the terms of the Artistic License 2.0.
