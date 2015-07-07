@@ -2,6 +2,19 @@ package LaTeX::Decode::Data;
 use strict;
 use warnings;
 use base qw(Exporter);
+
+=encoding utf8
+
+=head1 NAME
+
+LaTeX::Decode::Data - Data to decode from LaTeX to Unicode
+
+=head1 VERSION
+
+Version 0.04
+
+=cut
+
 our @EXPORT    = qw[ %ACCENTS %WORDMACROS %DIACRITICS %WORDMACROSEXTRA %DIACRITICSEXTRA %PUNCTUATION %NEGATEDSYMBOLS %SUPERSCRIPTS %SYMBOLS %CMDSUPERSCRIPTS %DINGS %GREEK $ACCENTS_RE $DIAC_RE_BASE $DIAC_RE_EXTRA $NEG_SYMB_RE $SUPER_RE $SUPERCMD_RE ];
 #our @EXPORT_OK = qw[
 #  %WORDMACROSEXTRA %DIACRITICSEXTRA %PUNCTUATION %NEGATEDSYMBOLS %SUPERSCRIPTS %SYMBOLS %CMDSUPERSCRIPTS %DINGS %GREEK
@@ -920,7 +933,7 @@ $SUPERCMD_RE    = qr{$SUPERCMD_RE};
 
 =head1 AUTHOR
 
-François Charette, C<< <firmicus at gmx.net> >>
+François Charette, C<< <firmicus@cpan.org> >>
 
 =head1 BUGS
 
@@ -930,14 +943,10 @@ L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=LaTeX-Decode>.  I will be
 notified, and then you'll automatically be notified of progress on your bug as
 I make changes.
 
-=head1 NOTICE
-
-This module is currently distributed with biber, but it is not unlikely that it
-will eventually make its way to CPAN.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2009-2010 François Charette, all rights reserved.
+Copyright 2009-2015 François Charette, all rights reserved.
 
 This module is free software.  You can redistribute it and/or
 modify it under the terms of the Artistic License 2.0.
