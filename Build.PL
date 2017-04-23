@@ -15,6 +15,11 @@ my $builder = Module::Build->new(
         'File::Slurp' => 0,
         'Unicode::Normalize' => 0,
     },
+    meta_merge => {
+        resources => {
+            repository => 'http://github.com/fc7/LaTeX-Decode',
+        },
+    },
     script_files => [ glob( "bin/*" ) ],
     add_to_cleanup      => [ 'LaTeX-Decode-*' ],
 #    create_makefile_pl => 'traditional',
