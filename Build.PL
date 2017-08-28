@@ -5,7 +5,7 @@ use Module::Build;
 my $builder = Module::Build->new(
     module_name         => 'LaTeX::Decode',
     license             => 'artistic_2',
-    dist_author         => q{François Charette <firmicus@cpan.org>},
+    dist_author         => q{Francois Charette <firmicus@cpan.org>},
     dist_version_from   => 'lib/LaTeX/Decode.pm',
     build_requires => {
         'Test::More' => 0,

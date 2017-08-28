@@ -13,12 +13,12 @@ LaTeX::Decode - Decode from LaTeX to Unicode
 
 =head1 VERSION
 
-Version 0.04
+Version 0.05
 
 =cut
 
 use base qw(Exporter);
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 our @EXPORT  = qw(latex_decode);
 use LaTeX::Decode::Data;
 use Unicode::Normalize;
